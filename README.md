@@ -24,11 +24,10 @@ This project analyzes a cohort of 4,024 breast cancer patients. Key analyses inc
 
 ## Data Availability
 
-Dataset used in this project:  
-SEER Breast Cancer Data (2006–2010)
+Dataset used in this project: [SEER Breast Cancer Data (2006–2010)](https://www.kaggle.com/datasets/reihanenamdari/breast-cancer/data)
+And here is a [detailed description](https://ieee-dataport.org/open-access/seer-breast-cancer-data) for the biological meanings of each column.
 
-Source: IEEE DataPort – SEER Breast Cancer Data  
-File Name: Breast_Cancer.csv
+This dataset of breast cancer patients provides information on population-based cancer statistics. The dataset involved female patients with infiltrating duct and lobular carcinoma breast cancer diagnosed in 2006-2010. Patients with unknown tumor size, examined regional LNs, regional positive LNs, and patients whose survival months were less than 1 month were excluded. 4024 patients were ultimately included.
 
 ## Getting Started
 

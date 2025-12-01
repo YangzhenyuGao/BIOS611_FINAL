@@ -130,6 +130,46 @@ corrplot(cor_matrix, method = "color", type = "upper",
          title = "Correlation Matrix of Continuous Variables", mar=c(0,0,2,0))
 ```
 
+## 1.3.3 Exploratory Data Analysis - PCA
+
+```{r}
+# Prepare Matrix for PCA
+# We need to remove the outcome variables (Status, Survival Months) from the input
+df_pca_input <- df_clean %>%
+  select(-Status, -Survival_Months) # Remove outcomes
+
+# Use model.matrix to automatically one-hot encode all categorical variables
+pca_matrix <- model.matrix(~ . - 1, data = df_pca_input)
+
+# Perform PCA
+# scale. = TRUE is crucial because variables have different units (Age vs Tumor Size)
+pca_result <- prcomp(pca_matrix, scale. = TRUE)
+
+# Visualization (PC1 vs PC2)
+# We extract the coordinates and add the 'Status' back for coloring
+pca_data <- as.data.frame(pca_result$x)
+pca_data$Status <- df_clean$Status
+
+# Calculate the percentage of variance explained by PC1 and PC2
+var_explained <- round(100 * (pca_result$sdev^2 / sum(pca_result$sdev^2)), 1)
+
+# Plot
+ggplot(pca_data, aes(x = PC1, y = PC2, color = Status, fill = Status)) +
+  geom_point(alpha = 0.6, size = 2) + # Semi-transparent points
+  stat_ellipse(geom = "polygon", alpha = 0.2, level = 0.95) + # Add confidence ellipses
+  scale_color_manual(values = c("Alive" = "#2E9FDF", "Dead" = "#E7B800")) + # Custom colors
+  scale_fill_manual(values = c("Alive" = "#2E9FDF", "Dead" = "#E7B800")) +
+  labs(
+    title = "PCA of Breast Cancer Clinical Features",
+    subtitle = "Do clinical profiles cluster by survival outcome?",
+    x = paste0("PC1 (", var_explained[1], "% Variance)"),
+    y = paste0("PC2 (", var_explained[2], "% Variance)")
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+```
+
+
 
 # 2. Research Question 1: Determinants of Overall Survival
 

@@ -1,72 +1,109 @@
-Evaluation of Prognostic Determinants and Survival Outcomes in Breast Carcinoma
+# Evaluation of Prognostic Determinants and Survival Outcomes in Breast Carcinoma
 
-A comprehensive analysis of SEER Breast Cancer Data (2006-2010), utilizing statistical inference and machine learning to investigate survival determinants, biological associations, and demographic disparities.
+A comprehensive analysis of SEER Breast Cancer Data (2006–2010), utilizing statistical inference and machine learning to investigate survival determinants, biological associations, and demographic disparities.
 
-Project Overview
+## Project Overview
 
 This project analyzes a cohort of 4,024 breast cancer patients. Key analyses include:
 
-Survival Analysis: Cox Proportional Hazards models to identify clinical determinants of mortality.
+### 1. Survival Analysis
+- Cox Proportional Hazards models
+- Identification of clinical determinants of mortality
 
-Biological Profiles: Investigation of age disparities between hormone-receptor subtypes.
+### 2. Biological Profiles
+- Investigation of age disparities between hormone-receptor subtypes
 
-Predictive Modeling: Comparison of Logistic Regression and Random Forest models for 5-year survival prediction.
+### 3. Predictive Modeling
+- Logistic Regression vs. Random Forest
+- Target outcome: 5-year survival
+- Performance evaluated using accuracy and AUC
 
-Demographic Disparities: Assessment of racial and marital status impact on disease presentation stage.
+### 4. Demographic Disparities
+- Racial and marital status impact on stage at diagnosis
+- Analysis of Stage III–IV vs Stage I–II presentation
 
-Data Availability
+## Data Availability
 
-The dataset used in this project is the SEER Breast Cancer Data.
+Dataset used in this project:  
+SEER Breast Cancer Data (2006–2010)
 
-Source: IEEE DataPort - SEER Breast Cancer Data
-
+Source: IEEE DataPort – SEER Breast Cancer Data  
 File Name: Breast_Cancer.csv
 
-Getting Started
+## Getting Started
 
-1. Building and Running the Container
+To ensure a consistent environment, this project is containerized using Docker.
 
-To ensure reproducibility, this project is containerized using Docker.
+---
 
-Build the image:
+## 1. Prerequisites
 
-docker build -t breast_cancer_analysis .
+Please ensure the following are installed:
 
+- Docker Desktop
+- Git
 
-Run the container:
+---
 
-# This mounts your current directory to the container so outputs are saved locally
-docker run -it --rm -v "$(pwd):/project" breast_cancer_analysis
+## 2. Build the Docker Image
 
-
-2. Building the Report
-
-Once inside the container (or if you have R/RStudio installed locally with make), you can generate the analysis report using the Makefile.
-
-Generate the full report (HTML/PDF):
-
-make report
+Navigate to the project root in your terminal and run: make build
 
 
-Clean up generated files:
+This will build a Docker image named `breast_cancer_analysis` with all necessary R packages installed.
 
-make clean
+---
+
+## 3. Run the Container
+
+To start an interactive shell inside the container: make run
 
 
-3. Developer Instructions
+Your local project directory will be mounted to:/home/rstudio/project
 
-The project is organized using a Makefile to streamline the workflow.
 
-make build: Builds the Docker image.
+inside the container. All generated files will be saved to your local folder.
 
-make run: Runs the Docker container with volume mapping.
+---
 
-make report: Renders the .Rmd file into the final report.
+## 4. Build the Report
 
-make clean: Removes generated output files.
+Inside the container (or on your local machine if R is installed), run: make report
 
-Dependencies
 
-R (>= 4.0.0)
+This will:
 
-Core Packages: tidyverse, survival, survminer, caret, randomForest, pROC, gtsummary
+- Detect changes to BIOS611_FINAL.Rmd or Breast_Cancer.csv
+- Render BIOS611_FINAL.html
+
+---
+
+## 5. Clean Up
+
+To remove generated HTML/PDF files: make clean
+
+---
+
+## For Developers
+
+The project uses a Makefile to automate key workflows.
+
+
+### Key Components
+
+- Dockerfile: Defines the environment (based on rocker/verse)
+- Makefile: Automates build, run, and report rendering
+- BIOS611_FINAL.Rmd: Main analysis source code
+
+
+
+
+
+
+
+
+
+
+
+
+
